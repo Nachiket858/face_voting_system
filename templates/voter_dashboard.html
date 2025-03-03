@@ -1,0 +1,162 @@
+<!-- <h2>Voter Dashboard</h2>
+<h2>Welcome, {{ voter_name }}!</h2>
+<h3>Ongoing Elections</h3>
+{% for election in ongoing_elections %}
+    <p>{{ election.name }} - Ends: {{ election.end_time }}</p>
+    {% if election._id|string in voted_election_ids %}
+        <button disabled>Voted</button>
+    {% else %}
+        <form action="{{ url_for('voter_bp.vote', election_id=election._id) }}" method="GET">
+            <button type="submit">Vote Now</button>
+        </form>
+    {% endif %}
+{% endfor %}
+
+<h3>Upcoming Elections</h3>
+{% for election in upcoming_elections %}
+    <p>{{ election.name }} - Starts: {{ election.start_time }}</p>
+{% endfor %}
+
+<a href="{{ url_for('voter_bp.logout') }}">Logout</a> -->
+
+
+
+<!-- 
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voter Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 h-screen flex flex-col">
+
+    
+    <nav class="bg-blue-700 text-white py-4 px-6 shadow-md">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold">Voting System</h1>
+            <div class="flex items-center space-x-4">
+                <span class="text-lg font-semibold">{{ voter_name }}</span>
+                <a href="{{ url_for('voter_bp.logout') }}" class="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+   
+    <main class="flex-grow flex justify-center p-8">
+        <div class="max-w-5xl w-full grid grid-cols-1 md:grid-cols-2 gap-6">
+            
+            
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <h3 class="text-xl font-semibold mb-4">Ongoing Elections</h3>
+                <div class="space-y-3">
+                    {% for election in ongoing_elections %}
+                        <div class="bg-gray-200 p-3 rounded-lg flex justify-between items-center">
+                            <p class="font-medium">{{ election.name }} - Ends: {{ election.end_time }}</p>
+                            {% if election._id|string in voted_election_ids %}
+                                <button class="bg-gray-400 text-white px-4 py-2 rounded-md cursor-not-allowed">Voted</button>
+                            {% else %}
+                                <form action="{{ url_for('voter_bp.vote', election_id=election._id) }}" method="GET">
+                                    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
+                                        Vote Now
+                                    </button>
+                                </form>
+                            {% endif %}
+                        </div>
+                    {% else %}
+                        <p class="text-gray-600">No ongoing elections.</p>
+                    {% endfor %}
+                </div>
+            </div>
+
+            
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <h3 class="text-xl font-semibold mb-4">Upcoming Elections</h3>
+                <div class="space-y-3">
+                    {% for election in upcoming_elections %}
+                        <p class="bg-yellow-100 p-3 rounded-lg">{{ election.name }} - Starts: {{ election.start_time }}</p>
+                    {% else %}
+                        <p class="text-gray-600">No upcoming elections.</p>
+                    {% endfor %}
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+</body>
+</html> -->
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voter Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 h-screen flex flex-col">
+
+    <!-- Navbar -->
+    <nav class="bg-blue-700 text-white py-4 px-6 shadow-md">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold">Voting System</h1>
+            <div class="flex items-center space-x-4">
+                <span class="text-lg font-semibold">{{ voter_name }}</span>
+                <a href="{{ url_for('voter_bp.logout') }}" class="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow flex justify-center p-8">
+        <div class="max-w-5xl w-full grid grid-cols-1 md:grid-cols-2 gap-6">
+            
+            <!-- Ongoing Elections Card -->
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <h3 class="text-xl font-semibold mb-4">Ongoing Elections</h3>
+                <div class="space-y-3">
+                    {% for election in ongoing_elections %}
+                        <div class="bg-gray-200 p-3 rounded-lg flex justify-between items-center">
+                            <p class="font-medium">{{ election.name }} - Ends: {{ election.end_time }}</p>
+                            {% if election._id|string in voted_election_ids %}
+                                <a href="{{ url_for('voter_bp.voter_election_results', election_id=election._id) }}" class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700">
+                                    View Results
+                                </a>
+                            {% else %}
+                                <form action="{{ url_for('voter_bp.vote', election_id=election._id) }}" method="GET">
+                                    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
+                                        Vote Now
+                                    </button>
+                                </form>
+                            {% endif %}
+                        </div>
+                    {% else %}
+                        <p class="text-gray-600">No ongoing elections.</p>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Upcoming Elections Card -->
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <h3 class="text-xl font-semibold mb-4">Upcoming Elections</h3>
+                <div class="space-y-3">
+                    {% for election in upcoming_elections %}
+                        <p class="bg-yellow-100 p-3 rounded-lg">{{ election.name }} - Starts: {{ election.start_time }}</p>
+                    {% else %}
+                        <p class="text-gray-600">No upcoming elections.</p>
+                    {% endfor %}
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+</body>
+</html>

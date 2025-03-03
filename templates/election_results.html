@@ -1,0 +1,95 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Election Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+    <h1>Election Results for {{ election.name }}</h1>
+    <h3>Region: {{ election.region }}</h3>
+
+    {% if results %}
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Candidate Name</th>
+                    <th>Party</th>
+                    <th>Votes</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for candidate in results %}
+                    <tr>
+                        <td>{{ candidate.name }}</td>
+                        <td>{{ candidate.party }}</td>
+                        <td>{{ candidate.votes }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No votes have been recorded yet.</p>
+    {% endif %}
+
+    <a href="{{ url_for('admin_bp.dashboard') }}">Back to Dashboard</a>
+
+</body>
+</html> -->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Election Results</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 h-screen flex flex-col">
+    
+    <!-- Navbar -->
+    <nav class="bg-blue-700 text-white py-4 px-6 shadow-md">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold">Election Results</h1>
+            <a href="{{ url_for('admin_bp.dashboard') }}" class="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700">Back to Dashboard</a>
+        </div>
+    </nav>
+    
+    <!-- Main Content -->
+    <main class="flex-grow flex justify-center items-center p-8">
+        <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-4xl">
+            <h2 class="text-3xl font-semibold text-center text-gray-800 mb-4">Election Results for {{ election.name }}</h2>
+            <h3 class="text-xl font-medium text-center text-gray-600 mb-6">Region: {{ election.region }}</h3>
+            
+            {% if results %}
+                <div class="overflow-x-auto">
+                    <table class="min-w-full bg-white border border-gray-200 rounded-lg shadow-md">
+                        <thead class="bg-gray-200">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-lg font-medium text-gray-700 border-b">Candidate Name</th>
+                                <th class="px-6 py-3 text-left text-lg font-medium text-gray-700 border-b">Party</th>
+                                <th class="px-6 py-3 text-left text-lg font-medium text-gray-700 border-b">Votes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for candidate in results %}
+                                <tr class="border-b hover:bg-gray-100">
+                                    <td class="px-6 py-4 text-gray-800">{{ candidate.name }}</td>
+                                    <td class="px-6 py-4 text-gray-800">{{ candidate.party }}</td>
+                                    <td class="px-6 py-4 text-gray-800">{{ candidate.votes }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <p class="text-center text-gray-600 mt-4">No votes have been recorded yet.</p>
+            {% endif %}
+        </div>
+    </main>
+</body>
+</html>

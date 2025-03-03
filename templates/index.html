@@ -1,0 +1,72 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voting System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        .container {
+            width: 50%;
+            margin: auto;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 20px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to the Facial Recognition Voting System</h1>
+        <p>Select your role:</p>
+        
+        Redirect to /voter/ instead of /voter/register -->
+        <!-- <button onclick="window.location.href='/voter/'">Voter</button>
+        <button onclick="window.location.href='/admin/login'">Admin</button>
+    </div>
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facial Recognition Voting</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="flex items-center justify-center min-h-screen bg-gradient-to-r from-blue-500 to-indigo-600">
+    <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-md text-center">
+        <!-- Logo / Image -->
+        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Voting Icon" class="w-20 mx-auto mb-4">
+
+        <!-- Title -->
+        <h1 class="text-2xl font-bold text-gray-800">Welcome to the Secure Voting System</h1>
+        <p class="text-gray-600 mt-2">A safe, efficient, and modern way to cast your vote using facial recognition.</p>
+
+        <!-- Role Selection -->
+        <div class="mt-6 space-y-4">
+            <button onclick="window.location.href='/voter/register'"
+                class="w-full bg-blue-500 text-white py-3 rounded-lg text-lg font-semibold hover:bg-blue-600 transition">
+                👤 Voter
+            </button>
+            <button onclick="window.location.href='/admin/login'"  
+                class="w-full bg-gray-800 text-white py-3 rounded-lg text-lg font-semibold hover:bg-gray-900 transition">
+                🔑 Admin
+            </button>
+        </div>
+
+        <!-- Additional Information -->
+        <div class="mt-6 text-gray-500 text-sm">
+            <p>📌 <strong>Voter:</strong> Register, log in, and cast your vote securely.</p>
+            <p>📌 <strong>Admin:</strong> Manage elections, verify voters, and monitor results.</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -96,6 +96,12 @@ def register():
         location = request.form.get("location")  # Capture location
         face_data = request.form.get("face_data")
 
+
+        Voter_Id = request.form.get("Voter_Id")
+        Aadhar_Id = request.form.get("Aadhar_Id")
+        Mobile_Num = request.form.get("Mobile_Num")
+        DOB = request.form.get("DOB")
+
         print("Location received:", location)  # Debugging step
 
         if not face_data:
@@ -121,6 +127,13 @@ def register():
             "password": password,
             "face_embedding": embedding,
             "location": location,  # Ensure it's included here
+
+            "Voter_Id":Voter_Id,
+            "Aadhar_Id":Aadhar_Id,
+            "Mobile_Num":Mobile_Num,
+            "date":DOB,
+
+
             "verified": False
         }
         voters_collection.insert_one(voter_data)

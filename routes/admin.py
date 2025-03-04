@@ -118,11 +118,21 @@ def add_candidate(election_id):
     if request.method == "POST":
         candidate_name = request.form["name"]
         candidate_party = request.form["party"]
+        # discription = request.form["discription"]
+        # logo = request.files["logo"]
+        
 
         mongo.db.elections.update_one(
             {"_id": ObjectId(election_id)},
             {"$push": {"candidates": {"name": candidate_name, "party": candidate_party}}}
-        )
+         )
+
+
+
+        # mongo.db.elections.update_one(
+        #     {"_id": ObjectId(election_id)},
+        #     {"$push": {"candidates": {"name": candidate_name, "party": candidate_party,'discription':discription,'logo':logo}}}
+        # )
 
         return redirect("/admin/dashboard")
 
@@ -323,3 +333,21 @@ def election_results(election_id):
     election = mongo.db.elections.find_one({"_id": election_id})
 
     return render_template("election_results.html", results=results, election=election)
+
+
+
+
+@admin_bp.route("/deny_verification/<voter_id>", methods=["POST"])
+def deny_verification(voter_id):
+    if not session.get("admin_logged_in"):
+        return jsonify({"error": "Unauthorized"}), 401
+
+    try:
+        # Delete the voter from the database
+        result = mongo.db.voters.delete_one({"_id": ObjectId(voter_id)})
+        if result.deleted_count > 0:
+            return jsonify({"message": "Voter denied and removed successfully!"}), 200
+        else:
+            return jsonify({"error": "Voter not found!"}), 404
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500

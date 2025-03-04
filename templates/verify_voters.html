@@ -1,58 +1,4 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verify Voters</title>
-    <style>
-        body { font-family: Arial, sans-serif; text-align: center; margin: 50px; }
-        .container { width: 60%; margin: auto; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { border: 1px solid #ccc; padding: 10px; text-align: center; }
-        button { padding: 8px 12px; cursor: pointer; background-color: green; color: white; border: none; }
-        button:hover { background-color: darkgreen; }
-    </style>
-    <script>
-        function verifyVoter(voterId, button) {
-            fetch(`/admin/approve_voter/${voterId}`, {
-                method: "POST"
-            }).then(response => response.json())
-            .then(data => {
-                if (data.message) {
-                    alert(data.message);
-                    button.parentElement.parentElement.remove();  // Remove row from table
-                }
-            });
-        }
-    </script>
-</head>
-<body>
-    <div class="container">
-        <h1>Voter Verification</h1>
-        {% if voters %}
-            <table>
-                <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Action</th>
-                </tr>
-                {% for voter in voters %}
-                <tr>
-                    <td>{{ voter.name }}</td>
-                    <td>{{ voter.email }}</td>
-                    <td>
-                        <button onclick="verifyVoter('{{ voter._id }}', this)">Verify</button>
-                    </td>
-                </tr>
-                {% endfor %}
-            </table>
-        {% else %}
-            <p>No voters pending verification.</p>
-        {% endif %}
-    </div>
-</body>
-</html> -->
-
+<!-- 
 
 <!DOCTYPE html>
 <html lang="en">
@@ -77,13 +23,13 @@
 </head>
 <body class="bg-gray-100">
 
-    <!-- Navigation Bar -->
+   
     <nav class="bg-blue-600 text-white py-4 px-6 flex justify-between">
         <h1 class="text-2xl font-bold">Admin Panel</h1>
         <a href="/admin/dashboard" class="text-lg hover:underline">Dashboard</a>
     </nav>
 
-    <!-- Main Container -->
+    
     <div class="max-w-4xl mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg">
         <h1 class="text-3xl font-semibold text-center text-gray-800 mb-6">Voter Verification</h1>
 
@@ -117,7 +63,7 @@
         <p class="text-center text-lg text-gray-600">No voters pending verification.</p>
         {% endif %}
 
-        <!-- Back Button -->
+        
         <div class="flex justify-center mt-6">
             <button onclick="window.location.href='/admin/dashboard'"
                 class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition">
@@ -127,5 +73,228 @@
     </div>
 
 </body>
-</html>
+</html> -->
 
+
+
+
+
+
+
+<!-- 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Voters</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        function verifyVoter(voterId, button) {
+            fetch(`/admin/approve_voter/${voterId}`, {
+                method: "POST"
+            }).then(response => response.json())
+            .then(data => {
+                if (data.message) {
+                    alert(data.message);
+                    button.parentElement.parentElement.remove(); // Remove row from table
+                }
+            });
+        }
+
+        function denyVerification(voterId, button) {
+            fetch(`/admin/deny_verification/${voterId}`, {
+                method: "POST"
+            }).then(response => response.json())
+            .then(data => {
+                if (data.message) {
+                    alert(data.message);
+                    button.parentElement.parentElement.remove(); // Remove row from table
+                }
+            });
+        }
+    </script>
+</head>
+<body class="bg-gray-100">
+
+    
+    <nav class="bg-blue-600 text-white py-4 px-6 flex justify-between">
+        <h1 class="text-2xl font-bold">Admin Panel</h1>
+        <a href="/admin/dashboard" class="text-lg hover:underline">Dashboard</a>
+    </nav>
+
+    
+    <div class="max-w-6xl mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg">
+        <h1 class="text-3xl font-semibold text-center text-gray-800 mb-6">Voter Verification</h1>
+
+        {% if voters %}
+        <div class="overflow-x-auto">
+            <table class="w-full border-collapse border border-gray-300">
+                <thead>
+                    <tr class="bg-gray-200 text-gray-700">
+                        <th class="border border-gray-300 px-6 py-3 text-left">Name</th>
+                        <th class="border border-gray-300 px-6 py-3 text-left">Email</th>
+                        <th class="border border-gray-300 px-6 py-3 text-left">Location</th>
+                        <th class="border border-gray-300 px-6 py-3 text-left">Voter ID</th>
+                        <th class="border border-gray-300 px-6 py-3 text-left">Aadhar ID</th>
+                        <th class="border border-gray-300 px-6 py-3 text-left">Mobile Number</th>
+                        <th class="border border-gray-300 px-6 py-3 text-left">Date of Birth</th>
+                        <th class="border border-gray-300 px-6 py-3 text-center">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for voter in voters %}
+                    <tr class="hover:bg-gray-100">
+                        <td class="border border-gray-300 px-6 py-3">{{ voter.name }}</td>
+                        <td class="border border-gray-300 px-6 py-3">{{ voter.email }}</td>
+                        <td class="border border-gray-300 px-6 py-3">{{ voter.location }}</td>
+                        <td class="border border-gray-300 px-6 py-3">{{ voter.Voter_Id }}</td>
+                        <td class="border border-gray-300 px-6 py-3">{{ voter.Aadhar_Id }}</td>
+                        <td class="border border-gray-300 px-6 py-3">{{ voter.Mobile_Num }}</td>
+                        <td class="border border-gray-300 px-6 py-3">{{ voter.date }}</td>
+                        <td class="border border-gray-300 px-6 py-3 text-center space-x-2">
+                            <button onclick="verifyVoter('{{ voter._id }}', this)" 
+                                class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition">
+                                Verify
+                            </button>
+                            <button onclick="denyVerification('{{ voter._id }}', this)" 
+                                class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition">
+                                Deny
+                            </button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p class="text-center text-lg text-gray-600">No voters pending verification.</p>
+        {% endif %}
+
+        
+        <div class="flex justify-center mt-6">
+            <button onclick="window.location.href='/admin/dashboard'"
+                class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition">
+                Back to Dashboard
+            </button>
+        </div>
+    </div>
+
+</body>
+</html> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Voters</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        function verifyVoter(voterId, button) {
+            fetch(`/admin/approve_voter/${voterId}`, {
+                method: "POST"
+            }).then(response => response.json())
+            .then(data => {
+                if (data.message) {
+                    alert(data.message);
+                    button.closest("tr").remove(); // Remove row from table
+                }
+            });
+        }
+
+        function denyVerification(voterId, button) {
+            fetch(`/admin/deny_verification/${voterId}`, {
+                method: "POST"
+            }).then(response => response.json())
+            .then(data => {
+                if (data.message) {
+                    alert(data.message);
+                    button.closest("tr").remove(); // Remove row from table
+                }
+            });
+        }
+    </script>
+</head>
+<body class="bg-gray-100">
+
+    <!-- Navigation Bar -->
+    <nav class="bg-blue-600 text-white py-4 px-6 flex justify-between items-center">
+        <h1 class="text-2xl font-bold">Admin Panel</h1>
+        <a href="/admin/dashboard" class="text-lg hover:underline">Dashboard</a>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="max-w-7xl mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg">
+        <h1 class="text-3xl font-semibold text-center text-gray-800 mb-8">Voter Verification</h1>
+
+        {% if voters %}
+        <div class="overflow-x-auto rounded-lg shadow-sm">
+            <table class="w-full border-collapse">
+                <thead>
+                    <tr class="bg-blue-600 text-white">
+                        <th class="px-6 py-4 text-left">Name</th>
+                        <th class="px-6 py-4 text-left">Email</th>
+                        <th class="px-6 py-4 text-left">Location</th>
+                        <th class="px-6 py-4 text-left">Voter ID</th>
+                        <th class="px-6 py-4 text-left">Aadhar ID</th>
+                        <th class="px-6 py-4 text-left">Mobile Number</th>
+                        <th class="px-6 py-4 text-left">Date of Birth</th>
+                        <th class="px-6 py-4 text-center">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for voter in voters %}
+                    <tr class="hover:bg-gray-50 transition-colors">
+                        <td class="px-6 py-4 border-b border-gray-200">{{ voter.name }}</td>
+                        <td class="px-6 py-4 border-b border-gray-200">{{ voter.email }}</td>
+                        <td class="px-6 py-4 border-b border-gray-200">{{ voter.location }}</td>
+                        <td class="px-6 py-4 border-b border-gray-200">{{ voter.Voter_Id }}</td>
+                        <td class="px-6 py-4 border-b border-gray-200">{{ voter.Aadhar_Id }}</td>
+                        <td class="px-6 py-4 border-b border-gray-200">{{ voter.Mobile_Num }}</td>
+                        <td class="px-6 py-4 border-b border-gray-200">{{ voter.date }}</td>
+                        <td class="px-6 py-4 border-b border-gray-200 text-center space-x-2">
+                            <button onclick="verifyVoter('{{ voter._id }}', this)" 
+                                class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition">
+                                Verify
+                            </button>
+                            <button onclick="denyVerification('{{ voter._id }}', this)" 
+                                class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition">
+                                Deny
+                            </button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p class="text-center text-lg text-gray-600 py-6">No voters pending verification.</p>
+        {% endif %}
+
+        <!-- Back Button -->
+        <div class="flex justify-center mt-8">
+            <button onclick="window.location.href='/admin/dashboard'"
+                class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition">
+                Back to Dashboard
+            </button>
+        </div>
+    </div>
+
+</body>
+</html>

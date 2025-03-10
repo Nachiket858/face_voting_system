@@ -1,112 +1,5 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
-    <style>
-        body { font-family: Arial, sans-serif; text-align: center; margin: 50px; }
-        .container { width: 60%; margin: auto; }
-        button { padding: 10px 20px; margin: 10px; font-size: 18px; cursor: pointer; }
-        .election-list { text-align: left; margin-top: 20px; }
-        .election-item { border: 1px solid #ccc; padding: 10px; margin: 10px 0; border-radius: 5px; padding-bottom: 15px; }
-        .ongoing { background-color: #ffeb99; }   /* Yellow for ongoing */
-        .upcoming { background-color: #cce5ff; }  /* Blue for upcoming */
-        .completed { background-color: #d4edda; } /* Green for completed */
-        .election-item a { text-decoration: none; color: blue; font-weight: bold; }
-        .delete-btn { color: red; margin-left: 10px; cursor: pointer; }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Welcome, Admin</h1>
-
-         ✅ Admin Options -->
-        <!-- <button onclick="window.location.href='/admin/create_election'">Create Election</button>
-        <button onclick="window.location.href='/admin/verify_voters'">Verify Voters</button>
-        <button onclick="window.location.href='/admin/logout'">Logout</button>
-
-        ✅ Ongoing Elections -->
-        <!-- <h2>Ongoing Elections</h2>
-        <div class="election-list">
-            {% if ongoing %}
-                {% for election in ongoing %}
-                    <div class="election-item ongoing">
-                        <strong>{{ election.name }}</strong> - {{ election.region }}  
-                        <br>
-                        🕒 Start: {{ election.start_time.strftime('%Y-%m-%d %H:%M:%S') }} | End: {{ election.end_time.strftime('%Y-%m-%d %H:%M:%S') }}
-                        <h4>Candidates:</h4>
-                        <ul>
-                            {% for candidate in election.candidates %}
-                                <li>
-                                    {{ candidate.name }} ({{ candidate.party }})
-                                    <a class="delete-btn" href="{{ url_for('admin_bp.delete_candidate', election_id=election._id, candidate_name=candidate.name, candidate_party=candidate.party) }}" 
-                                       onclick="return confirm('Are you sure you want to delete this candidate?');">❌</a>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                        <button onclick="window.location.href='{{ url_for('admin_bp.election_results', election_id=election._id) }}'">View Results</button>
-                    </div>
-                {% endfor %}
-            {% else %}
-                <p>No ongoing elections.</p>
-            {% endif %}
-        </div>
-
-        <!-- ✅ Upcoming Elections -->
-        <!-- <h2>Upcoming Elections</h2>
-        <div class="election-list">
-            {% if upcoming %}
-                {% for election in upcoming %}
-                    <div class="election-item upcoming">
-                        <strong>{{ election.name }}</strong> - {{ election.region }}  
-                        <br>
-                        🕒 Start: {{ election.start_time.strftime('%Y-%m-%d %H:%M:%S') }} | End: {{ election.end_time.strftime('%Y-%m-%d %H:%M:%S') }}
-                        <br>
-                        <a href="/admin/add_candidate/{{ election._id }}">➕ Add Candidate</a>
-                        <h4>Candidates:</h4>
-                        <ul>
-                            {% for candidate in election.candidates %}
-                                <li>
-                                    {{ candidate.name }} ({{ candidate.party }})
-                                    <a class="delete-btn" href="{{ url_for('admin_bp.delete_candidate', election_id=election._id, candidate_name=candidate.name, candidate_party=candidate.party) }}" 
-                                       onclick="return confirm('Are you sure you want to delete this candidate?');">❌</a>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                {% endfor %}
-            {% else %}
-                <p>No upcoming elections.</p>
-            {% endif %}
-        <!-- </div>
 <!-- 
-        ✅ Completed Elections
-        <!-- <h2>Completed Elections</h2>
-        <div class="election-list">
-            {% if completed %}
-                {% for election in completed %}
-                    <div class="election-item completed">
-                        <strong>{{ election.name }}</strong> - {{ election.region }}  
-                        <br>
-                        🕒 Start: {{ election.start_time.strftime('%Y-%m-%d %H:%M:%S') }} | End: {{ election.end_time.strftime('%Y-%m-%d %H:%M:%S') }}
-                        <h4>Candidates:</h4>
-                        <ul>
-                            {% for candidate in election.candidates %} -->
-                                <!-- <li>{{ candidate.name }} ({{ candidate.party }})</li>
-                            {% endfor %}
-                        </ul>
-                        <button onclick="window.location.href='{{ url_for('admin_bp.election_results', election_id=election._id) }}'">View Results</button>
-                    </div>
-                {% endfor %}
-            {% else %}
-                <p>No completed elections.</p>
-            {% endif %}
-        </div> -->
 
-    <!-- </div> -->
-<!-- </body> -->
-<!-- </html> --> 
 
 <!DOCTYPE html>
 <html lang="en">
@@ -118,7 +11,7 @@
 </head>
 <body class="bg-gray-100 font-sans">
 
-    <!-- Navbar -->
+    
     <nav class="bg-blue-700 text-white py-4 px-6 flex justify-between items-center shadow-md">
         <h1 class="text-2xl font-bold">Admin Dashboard</h1>
         <div class="flex gap-4">
@@ -132,7 +25,7 @@
     </nav>
 
     <div class="container mx-auto my-6 p-6 bg-white rounded-xl shadow-xl">
-        <!-- Header Section -->
+        
         <div class="flex justify-between items-center mb-6 border-b pb-4">
             <h2 class="text-2xl font-semibold text-gray-800">Manage Elections</h2>
             <a href="{{ url_for('admin_bp.create_election') }}" class="bg-green-600 text-white px-5 py-2 rounded-lg hover:bg-green-700 transition">
@@ -140,9 +33,9 @@
             </a>
         </div>
 
-        <!-- Election Sections -->
+        
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <!-- Ongoing Elections -->
+            
             <div class="bg-blue-100 p-5 rounded-xl shadow-md">
                 <h3 class="text-xl font-semibold text-blue-800 mb-3">Ongoing Elections</h3>
                 <div class="space-y-4">
@@ -164,7 +57,7 @@
                 </div>
             </div>
             
-            <!-- Upcoming Elections -->
+            
             <div class="bg-green-100 p-5 rounded-xl shadow-md">
                 <h3 class="text-xl font-semibold text-green-800 mb-3">Upcoming Elections</h3>
                 <div class="space-y-4">
@@ -185,7 +78,7 @@
                 </div>
             </div>
 
-            <!-- Completed Elections -->
+           
             <div class="bg-gray-200 p-5 rounded-xl shadow-md col-span-2">
                 <h3 class="text-xl font-semibold text-gray-800 mb-3">Completed Elections</h3>
                 <div class="space-y-4">
@@ -207,5 +100,119 @@
             </div>
         </div>
     </div>
+</body>
+</html> -->
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Indian Theme</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap');
+        body {
+            font-family: 'Merriweather', serif;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-b from-orange-200 via-white to-green-200">
+
+    <!-- Navbar with Indian Theme -->
+    <nav class="bg-orange-600 text-white py-4 px-6 flex justify-between items-center shadow-md">
+        <h1 class="text-2xl font-bold flex items-center">
+            Admin Dashboard
+        </h1>
+        <div class="flex gap-4">
+            <a href="{{ url_for('admin_bp.verify_voters') }}" class="bg-yellow-500 px-4 py-2 rounded-lg hover:bg-yellow-600 transition shadow-md">
+                🗳️ Verify Voters
+            </a>
+            <a href="{{ url_for('admin_bp.logout') }}" class="bg-red-500 px-4 py-2 rounded-lg hover:bg-red-600 transition shadow-md">
+                🚪 Logout
+            </a>
+        </div>
+    </nav>
+
+    <div class="container mx-auto my-6 p-6 bg-white rounded-xl shadow-2xl border border-gray-300">
+        <!-- Header Section -->
+        <div class="flex justify-between items-center mb-6 border-b pb-4">
+            <h2 class="text-2xl font-semibold text-orange-700">🗳 Manage Elections</h2>
+            <a href="{{ url_for('admin_bp.create_election') }}" class="bg-green-600 text-white px-5 py-2 rounded-lg hover:bg-green-700 transition shadow-md">
+                ➕ Create Election
+            </a>
+        </div>
+
+        <!-- Election Sections -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Ongoing Elections -->
+            <div class="bg-blue-100 p-5 rounded-xl shadow-md border-l-4 border-blue-600">
+                <h3 class="text-xl font-semibold text-blue-800 mb-3">📢 Ongoing Elections</h3>
+                <div class="space-y-4">
+                    {% for election in ongoing %}
+                    <div class="bg-white p-4 rounded-lg shadow flex flex-col gap-2 border-l-4 border-orange-500">
+                        <h4 class="text-lg font-bold">{{ election.name }}</h4>
+                        <p class="text-sm text-gray-600">📍 Region: {{ election.region }}</p>
+                        <p class="text-sm text-gray-600">⏳ Start: {{ election.start_time }}</p>
+                        <p class="text-sm text-gray-600">⏳ End: {{ election.end_time }}</p>
+                        <div class="mt-3 flex gap-2">
+                            <a href="{{ url_for('admin_bp.add_candidate', election_id=election._id) }}" class="bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600">👤 Add Candidates</a>
+                            <a href="{{ url_for('admin_bp.election_results', election_id=election._id) }}" class="bg-gray-500 text-white px-3 py-1 rounded-lg hover:bg-gray-600">📊 View Results</a>
+                            <form action="{{ url_for('admin_bp.delete_election', election_id=election._id) }}" method="POST" onsubmit="return confirm('Delete this election?');">
+                                <button type="submit" class="bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600">❌ Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Upcoming Elections -->
+            <div class="bg-green-100 p-5 rounded-xl shadow-md border-l-4 border-green-600">
+                <h3 class="text-xl font-semibold text-green-800 mb-3">🚀 Upcoming Elections</h3>
+                <div class="space-y-4">
+                    {% for election in upcoming %}
+                    <div class="bg-white p-4 rounded-lg shadow flex flex-col gap-2 border-l-4 border-orange-500">
+                        <h4 class="text-lg font-bold">{{ election.name }}</h4>
+                        <p class="text-sm text-gray-600">📍 Region: {{ election.region }}</p>
+                        <p class="text-sm text-gray-600">⏳ Start: {{ election.start_time }}</p>
+                        <p class="text-sm text-gray-600">⏳ End: {{ election.end_time }}</p>
+                        <div class="mt-3 flex gap-2">
+                            <a href="{{ url_for('admin_bp.add_candidate', election_id=election._id) }}" class="bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600">👤 Add Candidates</a>
+                            <form action="{{ url_for('admin_bp.delete_election', election_id=election._id) }}" method="POST" onsubmit="return confirm('Delete this election?');">
+                                <button type="submit" class="bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600">❌ Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Completed Elections -->
+            <div class="bg-gray-200 p-5 rounded-xl shadow-md col-span-2 border-l-4 border-gray-700">
+                <h3 class="text-xl font-semibold text-gray-800 mb-3">✅ Completed Elections</h3>
+                <div class="space-y-4">
+                    {% for election in completed %}
+                    <div class="bg-white p-4 rounded-lg shadow flex flex-col gap-2 border-l-4 border-orange-500">
+                        <h4 class="text-lg font-bold">{{ election.name }}</h4>
+                        <p class="text-sm text-gray-600">📍 Region: {{ election.region }}</p>
+                        <p class="text-sm text-gray-600">⏳ Start: {{ election.start_time }}</p>
+                        <p class="text-sm text-gray-600">⏳ End: {{ election.end_time }}</p>
+                        <div class="mt-3 flex gap-2">
+                            <a href="{{ url_for('admin_bp.election_results', election_id=election._id) }}" class="bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600">📊 View Results</a>
+                            <form action="{{ url_for('admin_bp.delete_election', election_id=election._id) }}" method="POST" onsubmit="return confirm('Delete this completed election?');">
+                                <button type="submit" class="bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600">❌ Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>

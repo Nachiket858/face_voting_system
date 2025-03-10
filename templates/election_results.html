@@ -1,45 +1,4 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Election Results</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-</head>
-<body>
-
-    <h1>Election Results for {{ election.name }}</h1>
-    <h3>Region: {{ election.region }}</h3>
-
-    {% if results %}
-        <table border="1">
-            <thead>
-                <tr>
-                    <th>Candidate Name</th>
-                    <th>Party</th>
-                    <th>Votes</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for candidate in results %}
-                    <tr>
-                        <td>{{ candidate.name }}</td>
-                        <td>{{ candidate.party }}</td>
-                        <td>{{ candidate.votes }}</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    {% else %}
-        <p>No votes have been recorded yet.</p>
-    {% endif %}
-
-    <a href="{{ url_for('admin_bp.dashboard') }}">Back to Dashboard</a>
-
-</body>
-</html> -->
-
-
+<!-- <!-- 
 
 <!DOCTYPE html>
 <html lang="en">
@@ -51,7 +10,7 @@
 </head>
 <body class="bg-gray-100 h-screen flex flex-col">
     
-    <!-- Navbar -->
+    
     <nav class="bg-blue-700 text-white py-4 px-6 shadow-md">
         <div class="max-w-6xl mx-auto flex justify-between items-center">
             <h1 class="text-2xl font-bold">Election Results</h1>
@@ -59,7 +18,7 @@
         </div>
     </nav>
     
-    <!-- Main Content -->
+    
     <main class="flex-grow flex justify-center items-center p-8">
         <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-4xl">
             <h2 class="text-3xl font-semibold text-center text-gray-800 mb-4">Election Results for {{ election.name }}</h2>
@@ -91,5 +50,79 @@
             {% endif %}
         </div>
     </main>
+</body>
+</html> -->
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Election Results | Indian Voting System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+
+    <!-- Navigation Bar with Tricolor -->
+    <nav class="bg-gradient-to-r from-orange-500 via-white to-green-500 text-gray-900 py-4 px-6 shadow-md border-b-4 border-blue-600">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <h1 class="text-2xl font-bold">Voting System - Admin</h1>
+            </div>
+            <a href="{{ url_for('admin_bp.dashboard') }}" class="text-lg font-semibold text-blue-700 hover:underline">Dashboard</a>
+        </div>
+    </nav>
+
+    <!-- Election Results Section -->
+    <div class="flex justify-center items-center min-h-screen">
+        <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-3xl border-t-4 border-orange-500">
+            
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Ashoka_Chakra.svg/120px-Ashoka_Chakra.svg.png" 
+                 alt="Ashoka Chakra" class="w-16 mx-auto mb-4">
+
+            <h2 class="text-3xl font-semibold text-center text-blue-700 mb-6">Election Results</h2>
+
+            <h3 class="text-xl font-medium text-center text-gray-600 mb-4">Election: {{ election.name }}</h3>
+            <h4 class="text-lg font-medium text-center text-gray-600 mb-6">Region: {{ election.region }}</h4>
+
+            {% if results %}
+                <div class="overflow-x-auto">
+                    <table class="min-w-full bg-white border border-gray-300 rounded-lg shadow-md">
+                        <thead class="bg-gray-200 text-gray-700">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-lg font-medium border-b">Candidate Name</th>
+                                <th class="px-6 py-3 text-left text-lg font-medium border-b">Party</th>
+                                <th class="px-6 py-3 text-left text-lg font-medium border-b">Votes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for candidate in results %}
+                                <tr class="border-b hover:bg-gray-100">
+                                    <td class="px-6 py-4 text-gray-800">{{ candidate.name }}</td>
+                                    <td class="px-6 py-4 text-gray-800">{{ candidate.party }}</td>
+                                    <td class="px-6 py-4 text-gray-800">{{ candidate.votes }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <p class="text-center text-gray-600 mt-4">No votes have been recorded yet.</p>
+            {% endif %}
+
+            <a href="{{ url_for('admin_bp.dashboard') }}" class="block text-center mt-6 bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition">
+                Back to Dashboard
+            </a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white text-center py-4 mt-6">
+        <p>&copy; 2025 Indian Voting System. All rights reserved.</p>
+    </footer>
+
 </body>
 </html>

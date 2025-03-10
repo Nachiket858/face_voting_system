@@ -87,61 +87,61 @@ def voter_home():
 #     return render_template("voter_register.html")
 
 
-@voter_bp.route("/register", methods=["GET", "POST"])
-def register():
-    if request.method == "POST":
-        name = request.form.get("name")
-        email = request.form.get("email")
-        password = generate_password_hash(request.form.get("password"))
-        location = request.form.get("location")  # Capture location
-        face_data = request.form.get("face_data")
+# @voter_bp.route("/register", methods=["GET", "POST"])
+# def register():
+#     if request.method == "POST":
+#         name = request.form.get("name")
+#         email = request.form.get("email")
+#         password = generate_password_hash(request.form.get("password"))
+#         location = request.form.get("location")  # Capture location
+#         face_data = request.form.get("face_data")
 
 
-        Voter_Id = request.form.get("Voter_Id")
-        Aadhar_Id = request.form.get("Aadhar_Id")
-        Mobile_Num = request.form.get("Mobile_Num")
-        DOB = request.form.get("DOB")
+#         Voter_Id = request.form.get("Voter_Id")
+#         Aadhar_Id = request.form.get("Aadhar_Id")
+#         Mobile_Num = request.form.get("Mobile_Num")
+#         DOB = request.form.get("DOB")
 
-        print("Location received:", location)  # Debugging step
+#         print("Location received:", location)  # Debugging step
 
-        if not face_data:
-            flash("Please capture your face!", "danger")
-            return redirect(url_for("voter_bp.register"))
+#         if not face_data:
+#             flash("Please capture your face!", "danger")
+#             return redirect(url_for("voter_bp.register"))
 
-        face_img = decode_image(face_data)
-        if face_img is None or detect_face(face_img) is None:
-            flash("No face detected! Please try again.", "danger")
-            return redirect(url_for("voter_bp.register"))
+#         face_img = decode_image(face_data)
+#         if face_img is None or detect_face(face_img) is None:
+#             flash("No face detected! Please try again.", "danger")
+#             return redirect(url_for("voter_bp.register"))
 
-        # Extract facial embeddings
-        try:
-            embedding = DeepFace.represent(face_img, model_name="Facenet")[0]["embedding"]
-        except:
-            flash("Face recognition failed! Try again.", "danger")
-            return redirect(url_for("voter_bp.register"))
+#         # Extract facial embeddings
+#         try:
+#             embedding = DeepFace.represent(face_img, model_name="Facenet")[0]["embedding"]
+#         except:
+#             flash("Face recognition failed! Try again.", "danger")
+#             return redirect(url_for("voter_bp.register"))
 
-        # Save voter to database
-        voter_data = {
-            "name": name,
-            "email": email,
-            "password": password,
-            "face_embedding": embedding,
-            "location": location,  # Ensure it's included here
+#         # Save voter to database
+#         voter_data = {
+#             "name": name,
+#             "email": email,
+#             "password": password,
+#             "face_embedding": embedding,
+#             "location": location,  # Ensure it's included here
 
-            "Voter_Id":Voter_Id,
-            "Aadhar_Id":Aadhar_Id,
-            "Mobile_Num":Mobile_Num,
-            "date":DOB,
+#             "Voter_Id":Voter_Id,
+#             "Aadhar_Id":Aadhar_Id,
+#             "Mobile_Num":Mobile_Num,
+#             "date":DOB,
 
 
-            "verified": False
-        }
-        voters_collection.insert_one(voter_data)
+#             "verified": False
+#         }
+#         voters_collection.insert_one(voter_data)
 
-        flash("Registration successful! You can now log in.", "success")
-        return redirect(url_for("voter_bp.voter_home"))
+#         flash("Registration successful! You can now log in.", "success")
+#         return redirect(url_for("voter_bp.voter_home"))
 
-    return render_template("voter_register.html")
+#     return render_template("voter_register.html")
 
 
 @voter_bp.route("/login", methods=["GET", "POST"])
@@ -372,53 +372,53 @@ def vote(election_id):
 
 
 
-@voter_bp.route("/dashboard", methods=["GET"])
-def dashboard():
-    if "voter_id" not in session:
-        flash("Please log in first.", "warning")
-        return redirect(url_for("voter_bp.login"))
+# @voter_bp.route("/dashboard", methods=["GET"])
+# def dashboard():
+#     if "voter_id" not in session:
+#         flash("Please log in first.", "warning")
+#         return redirect(url_for("voter_bp.login"))
 
-    voter_id = ObjectId(session["voter_id"])
-    current_time = datetime.now()
+#     voter_id = ObjectId(session["voter_id"])
+#     current_time = datetime.now()
 
-    # Fetch voter details including location and verification status
-    voter = voters_collection.find_one({"_id": voter_id}, {"name": 1, "location": 1, "verified": 1})
-    if not voter:
-        flash("Voter not found!", "danger")
-        return redirect(url_for("voter_bp.login"))
+#     # Fetch voter details including location and verification status
+#     voter = voters_collection.find_one({"_id": voter_id}, {"name": 1, "location": 1, "verified": 1})
+#     if not voter:
+#         flash("Voter not found!", "danger")
+#         return redirect(url_for("voter_bp.login"))
 
-    voter_name = voter.get("name", "Voter")  # Default to "Voter" if name is missing
-    voter_location = voter.get("location")  # Get the voter's location
-    voter_verified = voter.get("verified", False)  # Get the voter's verification status
+#     voter_name = voter.get("name", "Voter")  # Default to "Voter" if name is missing
+#     voter_location = voter.get("location")  # Get the voter's location
+#     voter_verified = voter.get("verified", False)  # Get the voter's verification status
 
-    if not voter_location:
-        flash("Your location is not set. Please update your profile.", "warning")
-        return redirect(url_for("voter_bp.voter_home"))
+#     if not voter_location:
+#         flash("Your location is not set. Please update your profile.", "warning")
+#         return redirect(url_for("voter_bp.voter_home"))
 
-    # Fetch elections that match the voter's location
-    ongoing_elections = list(elections_collection.find({
-        "start_time": {"$lte": current_time},
-        "end_time": {"$gte": current_time},
-        "region": voter_location  # Filter by voter's location
-    }))
+#     # Fetch elections that match the voter's location
+#     ongoing_elections = list(elections_collection.find({
+#         "start_time": {"$lte": current_time},
+#         "end_time": {"$gte": current_time},
+#         "region": voter_location  # Filter by voter's location
+#     }))
 
-    upcoming_elections = list(elections_collection.find({
-        "start_time": {"$gt": current_time},
-        "region": voter_location  # Filter by voter's location
-    }))
+#     upcoming_elections = list(elections_collection.find({
+#         "start_time": {"$gt": current_time},
+#         "region": voter_location  # Filter by voter's location
+#     }))
 
-    # Fetch voted elections
-    voted_elections = votes_collection.find({"voter_id": voter_id})
-    voted_election_ids = {str(vote["election_id"]) for vote in voted_elections}
+#     # Fetch voted elections
+#     voted_elections = votes_collection.find({"voter_id": voter_id})
+#     voted_election_ids = {str(vote["election_id"]) for vote in voted_elections}
 
-    return render_template(
-        "voter_dashboard.html",
-        voter_name=voter_name,  # Pass voter name to template
-        voter=voter,  # Pass the entire voter object to the template
-        ongoing_elections=ongoing_elections,
-        upcoming_elections=upcoming_elections,
-        voted_election_ids=voted_election_ids
-    )
+#     return render_template(
+#         "voter_dashboard.html",
+#         voter_name=voter_name,  # Pass voter name to template
+#         voter=voter,  # Pass the entire voter object to the template
+#         ongoing_elections=ongoing_elections,
+#         upcoming_elections=upcoming_elections,
+#         voted_election_ids=voted_election_ids
+#     )
 
 
 
@@ -551,3 +551,155 @@ def voter_election_results(election_id):
     results_list.sort(key=lambda x: x["votes"], reverse=True)
 
     return render_template("voter_election_results.html", election=election, results=results_list)
+
+
+
+
+
+
+
+
+
+
+
+
+import base64
+import numpy as np
+from flask import request, flash, redirect, url_for, render_template
+from werkzeug.security import generate_password_hash
+from deepface import DeepFace
+import cv2
+import json
+from bson.binary import Binary
+
+@voter_bp.route("/register", methods=["GET", "POST"])
+def register():
+    if request.method == "POST":
+        name = request.form.get("name")
+        email = request.form.get("email")
+        password = generate_password_hash(request.form.get("password"))
+        location = request.form.get("location")  # Capture location
+        face_data = request.form.get("face_data")
+        Voter_Id = request.form.get("Voter_Id")
+        Aadhar_Id = request.form.get("Aadhar_Id")
+        Mobile_Num = request.form.get("Mobile_Num")
+        DOB = request.form.get("DOB")
+
+        print("Location received:", location)  # Debugging step
+
+        if not face_data:
+            flash("Please capture your face!", "danger")
+            return redirect(url_for("voter_bp.register"))
+
+        # Decode the base64 face data
+        try:
+            face_img_data = base64.b64decode(face_data.split(",")[1])  # Extracting actual image data
+        except Exception as e:
+            flash("Invalid image format! Try again.", "danger")
+            return redirect(url_for("voter_bp.register"))
+
+        # Convert to OpenCV format for face detection
+        np_arr = np.frombuffer(face_img_data, np.uint8)
+        face_img = cv2.imdecode(np_arr, cv2.IMREAD_COLOR)
+
+        if face_img is None or detect_face(face_img) is None:
+            flash("No face detected! Please try again.", "danger")
+            return redirect(url_for("voter_bp.register"))
+
+        # Extract facial embeddings
+        try:
+            embedding = DeepFace.represent(face_img, model_name="Facenet")[0]["embedding"]
+        except:
+            flash("Face recognition failed! Try again.", "danger")
+            return redirect(url_for("voter_bp.register"))
+
+        # Save voter to database with binary image
+        voter_data = {
+            "name": name,
+            "email": email,
+            "password": password,
+            "face_embedding": embedding,
+            "location": location,  
+            "Voter_Id": Voter_Id,
+            "Aadhar_Id": Aadhar_Id,
+            "Mobile_Num": Mobile_Num,
+            "date": DOB,
+            "verified": False,
+            "face_image": Binary(face_img_data)  # Store image as binary in MongoDB
+        }
+
+        voters_collection.insert_one(voter_data)
+
+        flash("Registration successful! You can now log in.", "success")
+        return redirect(url_for("voter_bp.voter_home"))
+
+    return render_template("voter_register.html")
+
+
+
+
+
+
+
+
+
+
+import base64
+from flask import session, flash, redirect, url_for, render_template
+from bson.objectid import ObjectId
+from datetime import datetime
+
+@voter_bp.route("/dashboard", methods=["GET"])
+def dashboard():
+    if "voter_id" not in session:
+        flash("Please log in first.", "warning")
+        return redirect(url_for("voter_bp.login"))
+
+    voter_id = ObjectId(session["voter_id"])
+    current_time = datetime.now()
+
+    # Fetch voter details including location, verification status, and face image
+    voter = voters_collection.find_one({"_id": voter_id}, {"name": 1, "location": 1, "verified": 1, "face_image": 1})
+    if not voter:
+        flash("Voter not found!", "danger")
+        return redirect(url_for("voter_bp.login"))
+
+    voter_name = voter.get("name", "Voter")  # Default to "Voter" if name is missing
+    voter_location = voter.get("location")  # Get the voter's location
+    voter_verified = voter.get("verified", False)  # Get the voter's verification status
+    face_image_data = voter.get("face_image")  # Retrieve binary image data
+
+    if not voter_location:
+        flash("Your location is not set. Please update your profile.", "warning")
+        return redirect(url_for("voter_bp.voter_home"))
+
+    # Convert binary image to Base64 for rendering in HTML
+    face_image_base64 = None
+    if face_image_data:
+        face_image_base64 = base64.b64encode(face_image_data).decode("utf-8")
+
+    # Fetch elections that match the voter's location
+    ongoing_elections = list(elections_collection.find({
+        "start_time": {"$lte": current_time},
+        "end_time": {"$gte": current_time},
+        "region": voter_location  # Filter by voter's location
+    }))
+
+    upcoming_elections = list(elections_collection.find({
+        "start_time": {"$gt": current_time},
+        "region": voter_location  # Filter by voter's location
+    }))
+
+    # Fetch voted elections
+    voted_elections = votes_collection.find({"voter_id": voter_id})
+    voted_election_ids = {str(vote["election_id"]) for vote in voted_elections}
+
+    return render_template(
+        "voter_dashboard.html",
+        voter_name=voter_name,  
+        voter=voter,  
+        face_image=face_image_base64,  # Pass face image to template
+        ongoing_elections=ongoing_elections,
+        upcoming_elections=upcoming_elections,
+        voted_election_ids=voted_election_ids
+    )

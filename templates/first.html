@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biometric Voting System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="flex items-center justify-center h-screen text-center bg-white">
+    <div class="p-10 w-full max-w-2xl flex flex-col items-center border border-gray-300 shadow-lg rounded-lg">
+        <img src="{{ url_for('static', filename='image.png') }}" alt="College Logo" class="mb-6 w-40000000">
+        
+        <h3 class="text-2xl font-bold text-orange-600">Department of Artificial Intelligence and Data Science</h3>
+        <h4 class="text-xl font-medium mt-2 text-green-600">Biometric Web-Based Voting System</h4>
+        
+        <button onclick="window.location.href='/index'" class="mt-6 px-8 py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg hover:bg-blue-700 border border-gray-300 shadow-md">Start</button>
+        
+        <h5 class="mt-8 text-lg font-bold border-b-2 border-gray-500 pb-1 w-full text-left text-orange-600">Team Members</h5>
+        <ul class="text-gray-700 text-md mt-2 text-left w-full pl-6 list-decimal">
+            <li>Yash Rathod</li>
+            <li>Aqdas Pathan Safwan</li>
+            <li>Manthan Naware</li>
+            <li>Anup Galpalliwal</li>
+            <li>Abhilash Deshpande</li>
+        </ul>
+        
+        <p class="mt-6 text-gray-600 text-md font-medium text-left w-full">Project Guide: Dr. R.J. Bhiwani Sir</p>
+    </div>
+</body>
+</html>
